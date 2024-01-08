@@ -7,6 +7,11 @@ const Suppliers = require('../models').suppliers;
 
 /* GET users listing. */
 router.get('/findAll/', function(req, res, next) {
+  const { role } = req.user;
+
+  if (role !== process.env.ADMIN) {
+      return res.sendStatus(401);
+  }
     Suppliers.findAll({  
     })  
     .then(data => {  
